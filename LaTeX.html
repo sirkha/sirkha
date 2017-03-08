@@ -10,8 +10,7 @@
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     showProcessingMessages: false,
-    tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] },
-    extensions: ["toMathML.js"]
+    tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
   });
 </script>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
@@ -34,8 +33,7 @@ var Preview = {
   Init: function () {
     this.preview = document.getElementById("MathPreview");
     this.buffer = document.getElementById("MathBuffer");
-    this.codeBuffer = document.getElementById("CodeBuffer");
-    this.codeView = document.getElementById("CodeView");
+    this.output = document.getElementById("MathOutput");
   },
 
   //
@@ -46,12 +44,9 @@ var Preview = {
   SwapBuffers: function () {
     var buffer = this.preview, preview = this.buffer;
     this.buffer = buffer; this.preview = preview;
-    var codeBuffer = this.codeView, codeView = this.codeBuffer;
-    this.codeBuffer = codeBuffer; this.codeView = codeView;
     buffer.style.visibility = "hidden"; buffer.style.position = "absolute";
     preview.style.position = ""; preview.style.visibility = "";
-    codeBuffer.style.visibility = "hidden"; codeBuffer.style.position = "absolute";
-    codeView.style.position = ""; codeView.style.visibility = "";
+    this.output.value = this.perview.innerHTML;
   },
 
   //
@@ -84,11 +79,9 @@ var Preview = {
       MathJax.Hub.Queue(["CreatePreview",this]);
     } else {
       this.buffer.innerHTML = this.oldtext = text;
-      this.codeBuffer.innerHTML = this.oldtext = text;
       this.mjRunning = true;
       MathJax.Hub.Queue(
 	["Typeset",MathJax.Hub,this.buffer],
-	["toMathML",MathJax.Hub,this.codeBuffer],
 	["PreviewDone",this]
       );
     }
@@ -131,12 +124,9 @@ Preview.callback.autoReset = true;  // make sure it can run more than once
 <div id="MathPreview" style="border:1px solid; padding: 3px; width:50%; margin-top:5px"></div>
 <div id="MathBuffer" style="border:1px solid; padding: 3px; width:50%; margin-top:5px; 
 visibility:hidden; position:absolute; top:0; left: 0"></div>
-
-<p>And the MathML is</p>
-<div id="CodeView" style="border:1px solid; padding: 3px; width:50%; margin-top:5px"></div>
-<div id="CodeBuffer" style="border:1px solid; padding: 3px; width:50%; margin-top:5px; 
-visibility:hidden; position:absolute; top:0; left: 0"></div>
-
+<p>MathML is shown here:</p>
+<textarea id="MathOutput" cols="80" rows="20" style="margin-top:5px">
+</textarea>
 <script>
 Preview.Init();
 </script>
