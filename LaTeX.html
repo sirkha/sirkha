@@ -47,7 +47,9 @@ var Preview = {
     preview.style.position = ""; preview.style.visibility = "";
 	  
     var output = document.getElementById("MathOutput");
-    output.value = this.preview.innerHTML;
+    var mathmltags = document.getElementsByTagName('math');
+    var mathmltag = mathmltags[1];
+    output.value = mathmltag.parentElement.innerHTML;
   },
 
   //
