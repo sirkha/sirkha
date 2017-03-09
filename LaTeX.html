@@ -47,8 +47,8 @@ var Preview = {
     preview.style.position = ""; preview.style.visibility = "";
 	//get just the math and put it in the textbox  
     var output = document.getElementById("MathOutput");
-    var mathmltags = document.getElementsByTagName('math');
-    var mathmltag = mathmltags[1];
+    var mathmltags = document.getElementsByTagName('Math');
+    var mathmltag = mathmltags[0];
     output.value = mathmltag.parentElement.innerHTML;
   },
 
