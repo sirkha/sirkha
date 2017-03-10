@@ -49,7 +49,7 @@ var Preview = {
     var output = document.getElementById("MathOutput");
     
     var mjreturn = this.preview.innerHTML;
-    var mathstart = mjreturn.indexOf("<math");
+    var mathstart = mjreturn.lastIndexOf("<math");
     var mathend = mjreturn.indexOf("/math>", mathstart);
     output.value = mjreturn.slice(mathstart,mathend+6);
   },
@@ -109,6 +109,20 @@ var Preview = {
 Preview.callback = MathJax.Callback(["CreatePreview",Preview]);
 Preview.callback.autoReset = true;  // make sure it can run more than once
 
+//copy callback
+function CopyTextArea() {
+	var copyTextarea = document.getElementById('MathOutput');
+	copyTextarea.select();
+
+	try {
+		var successful = document.execCommand('copy');
+		var msg = successful ? 'successful' : 'unsuccessful';
+		console.log('Copying text command was ' + msg);
+	} catch (err) {
+		console.log('Oops, unable to copy');
+	}
+}
+
 </script>
 </head>
 <body>
@@ -131,7 +145,7 @@ visibility:hidden; position:absolute; top:0; left: 0"></div>
 <p>MathML output:</p>
 <textarea id="MathOutput" cols="80" rows="20" style="margin-top:5px" readonly="true">
 </textarea><br/>
-<button>Copy</button>
+<button onclick="CopyTextArea()">Copy</button>
 </div>
 
 <div id="info">
